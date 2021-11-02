@@ -14,6 +14,12 @@
         textconv = "hexdump -v -C";
         binary = "true";
       };
+
+      # Use fast-forward pulls by default
+      pull.ff = "only";
+
+      # 'master' as default branch
+      init.defaultBranch = "master";
     };
   };
 
