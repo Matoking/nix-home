@@ -2,27 +2,17 @@
 
 let
   myVimPlugins = with pkgs.vimPlugins; [
-    ale
-    ctrlp-vim
-    nerdtree
-    rust-vim
-    vim-airline
-    vim-flake8
-    vim-javascript
-    vim-jinja
-    vim-easymotion
-    vim-better-whitespace
-    vim-isort
-    vim-nix
-    nerdtree-git-plugin
-  ];
-  linterPackages = with pkgs; [
-    # Various linters
-    yamllint
-    python38Packages.flake8
-    python38Packages.pylint
-    python38Packages.isort
-    shellcheck
+    ale                             # Asynchronous linting
+    ctrlp-vim                       # Fuzzy search with ctrl+p
+    nerdtree                        # Tree file browser
+    vim-airline                     # Status/tabline for vim
+    vim-javascript                  # JavaScript syntax highlighting
+    vim-jinja                       # Jinja syntax highlighting
+    vim-easymotion                  # Fast cursor motions
+    vim-better-whitespace           # Highlight trailing whitespace
+    vim-isort                       # :Isort command to sort Python imports
+    vim-nix                         # Nix syntax highlighting
+    nerdtree-git-plugin             # git status icons in file browser
   ];
 in
 {
