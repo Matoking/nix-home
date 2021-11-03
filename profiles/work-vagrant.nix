@@ -5,6 +5,7 @@
     ../modules/base/default.nix
     ../modules/git/default.nix
     ../modules/neovim/default.nix
+    ../modules/zsh/default.nix
   ];
 
   programs.git = {
