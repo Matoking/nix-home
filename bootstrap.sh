@@ -21,6 +21,9 @@ if [ -z "$nix_path" ]; then
     fi
     chmod +x /tmp/nix_install;
     /tmp/nix_install;
+
+    # Source the Nix-generated file to ensure Nix is available
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
 
 # Check if Nix is working as expected
@@ -33,6 +36,16 @@ if [ -z "$home_manager_path" ]; then
     nix-channel --update || true
 
     nix-shell '<home-manager>' -A install
+fi
+
+touch "$HOME/.profile"
+nix_path_match=$(grep "hm-session-vars" "$HOME/.profile")
+
+if [ -z "$nix_path_match" ]; then
+    echo 'Adding hm-session-vars.sh to ~/.profile';
+    echo "source \"$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh\"" >> "$HOME/.profile";
+
+    . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 fi
 
 # Check if Home Manager is working
