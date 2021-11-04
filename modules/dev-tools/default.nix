@@ -7,5 +7,6 @@
     python38Packages.pylint           # Python linter
     python38Packages.isort            # Python import sorting tool
     shellcheck                        # Shell linter
+    httpie                            # Curl-like tool for humans
   ];
 }
