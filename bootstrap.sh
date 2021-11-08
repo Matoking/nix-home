@@ -9,8 +9,12 @@ if [ ! -f "$current_pwd/profiles/$profile_to_install.nix" ]; then
     exit 1;
 fi
 
-nix_path=$(command -v nix)
-if [ -z "$nix_path" ]; then
+command -v wget > /dev/null || {
+    echo "wget is not installed!"
+    exit 1;
+}
+
+if ! command -v nix; then
     echo 'Installing Nix...'
     wget -O /tmp/nix_install https://releases.nixos.org/nix/nix-2.3.16/install || true;
     found_hash=$(sha256sum /tmp/nix_install)
@@ -23,14 +27,13 @@ if [ -z "$nix_path" ]; then
     /tmp/nix_install;
 
     # Source the Nix-generated file to ensure Nix is available
-    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh" || true
 fi
 
 # Check if Nix is working as expected
 nix-instantiate '<nixpkgs>' -A hello
 
-home_manager_path=$(command -v home-manager)
-if [ -z "$home_manager_path" ]; then
+if ! command -v home-manager; then
     echo 'Installing Home Manager...'
     nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager || true
     nix-channel --update || true
@@ -39,13 +42,12 @@ if [ -z "$home_manager_path" ]; then
 fi
 
 touch "$HOME/.profile"
-nix_path_match=$(grep "hm-session-vars" "$HOME/.profile")
 
-if [ -z "$nix_path_match" ]; then
+if ! grep "hm-session-vars" "$HOME/.profile"; then
     echo 'Adding hm-session-vars.sh to ~/.profile';
     echo "source \"$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh\"" >> "$HOME/.profile";
 
-    . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+    . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" || true
 fi
 
 # Check if Home Manager is working
