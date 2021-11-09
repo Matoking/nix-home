@@ -1,4 +1,4 @@
-# nix-home-manager
+# nix-home
 
 1. Install [Nix](https://nixos.org/download.html)
 
@@ -8,7 +8,7 @@
 
 ```
 rm $HOME/.config/nixpkgs/home.nix
-ln -s $HOME/git/nix-home-manager/profiles/home.nix $HOME/.config/nixpkgs/home.nix
+ln -s $HOME/git/nix-home/profiles/home.nix $HOME/.config/nixpkgs/home.nix
 ```
 
 4. Add the following line into `~/.zshrc`
