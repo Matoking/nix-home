@@ -8,5 +8,6 @@
     python38Packages.isort            # Python import sorting tool
     shellcheck                        # Shell linter
     httpie                            # Curl-like tool for humans
+    ansible-lint                      # Ansible linting tool
   ];
 }

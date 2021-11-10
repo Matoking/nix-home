@@ -20,6 +20,23 @@ in
 
       # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
       source ${p10kFile};
+
+      # Login using an ephemeral SSH agent, which is killed immediately
+      # after the SSH session ends
+      function ssha() {
+          eval $(ssh-agent -s)
+          trap "kill $SSH_AGENT_PID" EXIT
+          ssh -A $@
+          kill $SSH_AGENT_PID
+      }
+
+      # Kill most Wine processes
+      function killwine() {
+          ps aux | egrep "wine|\.exe" | tr -s ' ' | cut -d ' ' -f 2 | xargs kill -9
+      }
     '';
+    shellAliases = {
+      prettyjson = "${pkgs.python3}/bin/python -m json.tool";
+    };
   };
 }
