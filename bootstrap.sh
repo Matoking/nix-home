@@ -27,7 +27,9 @@ if ! command -v nix; then
     /tmp/nix_install;
 
     # Source the Nix-generated file to ensure Nix is available
-    . "$HOME/.nix-profile/etc/profile.d/nix.sh" || true
+    set +eu  # Disable error checking temporarily
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+    set -eu
 fi
 
 # Check if Nix is working as expected
@@ -47,13 +49,15 @@ if ! grep "hm-session-vars" "$HOME/.profile"; then
     echo 'Adding hm-session-vars.sh to ~/.profile';
     echo "source \"$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh\"" >> "$HOME/.profile";
 
-    . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" || true
+    set +eu  # Disable error checking temporarily
+    . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+    set -eu
 fi
 
 # Check if Home Manager is working
 home-manager --version
 
-rm "$HOME/.config/nixpkgs/home.nix";
+rm "$HOME/.config/nixpkgs/home.nix" || true;
 ln -s "$current_pwd/profiles/$profile_to_install.nix" "$HOME/.config/nixpkgs/home.nix";
 
 # Finally, install the new configuration
