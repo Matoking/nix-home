@@ -47,6 +47,7 @@ touch "$HOME/.profile"
 
 if ! grep "hm-session-vars" "$HOME/.profile"; then
     echo 'Adding hm-session-vars.sh to ~/.profile';
+    echo "source \"$HOME/.nix-profile/etc/profile.d/nix.sh\"" >> "$HOME/.profile";
     echo "source \"$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh\"" >> "$HOME/.profile";
 
     set +eu  # Disable error checking temporarily
