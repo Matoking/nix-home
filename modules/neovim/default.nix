@@ -49,6 +49,8 @@ in
           let NERDTreeIgnore = ['\.pyc$']
 
           autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+          autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+          autocmd FileType vue setlocal ts=2 sts=2 sw=2 expandtab
 
           " Activate EasyMotion with only 's' letter
           map s <Plug>(easymotion-s)
