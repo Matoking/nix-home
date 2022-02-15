@@ -10,7 +10,11 @@ let
     vim-jinja                       # Jinja syntax highlighting
     vim-easymotion                  # Fast cursor motions
     vim-better-whitespace           # Highlight trailing whitespace
-    vim-isort                       # :Isort command to sort Python imports
+    vim-vue                         # Vue syntax highlighting
+    plantuml-syntax                 # PlantUML syntax highlighting
+
+    # isort temporarily disabled
+    #vim-isort                       # :Isort command to sort Python imports
     vim-nix                         # Nix syntax highlighting
     nerdtree-git-plugin             # git status icons in file browser
   ];
