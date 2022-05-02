@@ -1,6 +1,11 @@
 { pkgs,  ... }:
 
-let
+let fixedVimIsort = pkgs.vimPlugins.vim-isort.overrideAttrs (old: rec {
+    postPatch = ''
+      substituteInPlace ftplugin/python_vimisort.vim \
+        --replace 'import vim' 'import vim; import sys; sys.path.append("${pkgs.python3Packages.isort}/${pkgs.python3.sitePackages}")'
+    '';
+  });
   myVimPlugins = with pkgs.vimPlugins; [
     ale                             # Asynchronous linting
     ctrlp-vim                       # Fuzzy search with ctrl+p
@@ -13,10 +18,9 @@ let
     vim-vue                         # Vue syntax highlighting
     plantuml-syntax                 # PlantUML syntax highlighting
 
-    # isort temporarily disabled
-    #vim-isort                       # :Isort command to sort Python imports
     vim-nix                         # Nix syntax highlighting
     nerdtree-git-plugin             # git status icons in file browser
+    fixedVimIsort                   # :Isort command to sort Python imports
   ];
 in
 {
