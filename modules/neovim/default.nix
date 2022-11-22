@@ -11,14 +11,12 @@ let fixedVimIsort = pkgs.vimPlugins.vim-isort.overrideAttrs (old: rec {
     ctrlp-vim                       # Fuzzy search with ctrl+p
     nerdtree                        # Tree file browser
     vim-airline                     # Status/tabline for vim
-    vim-javascript                  # JavaScript syntax highlighting
     vim-jinja                       # Jinja syntax highlighting
     vim-easymotion                  # Fast cursor motions
     vim-better-whitespace           # Highlight trailing whitespace
-    vim-vue                         # Vue syntax highlighting
-    plantuml-syntax                 # PlantUML syntax highlighting
+    vim-polyglot                    # Better syntax highlighting for languages
+                                    # including Python
 
-    vim-nix                         # Nix syntax highlighting
     nerdtree-git-plugin             # git status icons in file browser
     fixedVimIsort                   # :Isort command to sort Python imports
   ];
