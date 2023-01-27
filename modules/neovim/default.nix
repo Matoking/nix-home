@@ -54,6 +54,27 @@ in
 
           let NERDTreeIgnore = ['\.pyc$']
 
+          " Fixes performance issues with Vue linting
+          let g:vue_pre_processors = []
+
+          " Define specific linters for Python
+          let g:ale_linters = {
+          \ 'python': ['pylint', 'ruff']
+          \ }
+
+          " Tune highlighting colors for Tango color scheme
+          highlight ALEVirtualTextError ctermfg=Red
+          highlight ALEVirtualTextWarning ctermfg=Yellow
+
+          " Start linting earlier after writing
+          let g:ale_lint_delay = 50
+
+          " Use a glyph from Nerd font for the warning label
+          let g:ale_virtualtext_prefix = ' %type%: '
+
+          " Disable mouse support by default
+          set mouse=
+
           autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
           autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
           autocmd FileType vue setlocal ts=2 sts=2 sw=2 expandtab

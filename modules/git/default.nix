@@ -25,5 +25,6 @@
 
   home.packages = with pkgs; [
     diff-so-fancy               # Fancy diff tool
+    openssh                     # Required for new fancy SSH features
   ];
 }
