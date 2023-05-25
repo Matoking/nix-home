@@ -13,6 +13,22 @@
   programs.git = {
     userEmail = "janne.pulkkinen@csc.fi";
     userName = "Janne Pulkkinen";
+
+    # Enable SSH signing
+    extraConfig = {
+      user = {
+        signingkey = "/home/vagrant/.ssh/id_rsa";
+      };
+      commit = {
+        gpgsign = true;
+      };
+      gpg = {
+        format = "ssh";
+      };
+      "gpg \"ssh\"" = {
+        allowedSignersFile = "/home/vagrant/.ssh/allowed_signers";
+      };
+    };
   };
 
   # Home Manager needs a bit of information about you and the

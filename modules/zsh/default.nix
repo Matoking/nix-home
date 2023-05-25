@@ -10,16 +10,29 @@ in
       theme = "";
     };
     initExtra = ''
+      # Ensure UTF-8 locale is used if available. Powerlevel10k requires
+      # UTF-8, otherwise it will crash and burn and leave the shell
+      # unusable.
+      if ! locale | grep -i "\.utf" &> /dev/null || locale -a | grep "en_US.utf8" &> /dev/null; then
+        export LANG=en_US.UTF-8
+      fi
+
       # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
       # Initialization code that may require console input (password prompts, [y/n]
       # confirmations, etc.) must go above this block; everything else may go below.
-      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
-      # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-      source ${p10kFile};
+      # Only load Powerlevel10k if we have a sane locale.
+      # This ensures we have a working shell even if this system does not have
+      # UTF-8 support for some reason.
+      if locale | grep -i "\.utf" &> /dev/null; then
+        if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+        fi
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+
+        # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+        source ${p10kFile};
+      fi
 
       # Login using an ephemeral SSH agent, which is killed immediately
       # after the SSH session ends
