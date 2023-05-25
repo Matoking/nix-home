@@ -58,8 +58,9 @@ fi
 # Check if Home Manager is working
 home-manager --version
 
-rm "$HOME/.config/nixpkgs/home.nix" || true;
-ln -s "$current_pwd/profiles/$profile_to_install.nix" "$HOME/.config/nixpkgs/home.nix";
+mkdir -p "$HOME/.config/home-manager" || true;
+rm "$HOME/.config/home-manager/home.nix" || true;
+ln -s "$current_pwd/profiles/$profile_to_install.nix" "$HOME/.config/home-manager/home.nix";
 
 # Finally, install the new configuration
 home-manager switch
