@@ -19,6 +19,7 @@ let fixedVimIsort = pkgs.vimPlugins.vim-isort.overrideAttrs (old: rec {
 
     nerdtree-git-plugin             # git status icons in file browser
     fixedVimIsort                   # :Isort command to sort Python imports
+    vim-prettier                    # Opinionated JS formatter
   ];
   # Use virtual text prefix with note type if ALE is new enough
   virtualtextPrefix = if lib.versionAtLeast pkgs.vimPlugins.ale.version "2023-05-05" then " %type%: " else " : ";
@@ -47,7 +48,7 @@ in
           set autoindent
 
           inoremap jk <ESC>
-          let mapleader = "\<Space>"
+          let mapleader = ","
 
           filetype plugin indent on
           syntax on
@@ -123,6 +124,11 @@ in
           " Use Ctrl+K and Ctrl+J to move between ALE warnings
           nmap <silent> <C-k> <Plug>(ale_previous_wrap)
           nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+          " Only autoformat using Prettier if the project is configured to
+          " use it
+          let g:prettier#autoformat_config_present = 1
+          let g:prettier#autoformat_require_pragma = 0
 
           function! StartUp()
               if 0 == argc()
