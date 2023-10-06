@@ -16,6 +16,7 @@ let fixedVimIsort = pkgs.vimPlugins.vim-isort.overrideAttrs (old: rec {
     vim-better-whitespace           # Highlight trailing whitespace
     vim-polyglot                    # Better syntax highlighting for languages
                                     # including Python
+    fzf-vim                         # Fuzzy grep for files using :Ag
 
     nerdtree-git-plugin             # git status icons in file browser
     fixedVimIsort                   # :Isort command to sort Python imports
@@ -86,6 +87,12 @@ in
 
           " Activate EasyMotion with only 's' letter
           map s <Plug>(easymotion-s)
+
+          " Activate :Ag (fuzzy grep) with Ctrl+L
+          nmap <C-l> :Ag<CR>
+
+          " Allow closing FZF window with Esc
+          autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
           " Alias :W to :w
           cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
