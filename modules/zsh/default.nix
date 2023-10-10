@@ -43,6 +43,20 @@ in
           kill $SSH_AGENT_PID
       }
 
+      # Run a `git` command with an ephemeral SSH agent.
+      # This helps avoid multiple passphrase prompts if we're doing something
+      # that would mean signing tons of commits (eg. rebasing).
+      function sgit() {
+        eval $(ssh-agent -s)
+        trap "kill $SSH_AGENT_PID" EXIT
+        ssh_file=""
+        ls ~/.ssh/id_rsa >/dev/null 2>&1 && ssh_file="$HOME/.ssh/id_rsa"
+        ls ~/.ssh/id_ed25519 >/dev/null 2>&1 && ssh_file="$HOME/.ssh/id_ed25519"
+        ssh-add "$ssh_file" || kill $SSH_AGENT_PID
+        git $@ || kill $SSH_AGENT_PID
+        kill $SSH_AGENT_PID
+      }
+
       # Kill most Wine processes
       function killwine() {
           ps aux | egrep "wine|\.exe" | tr -s ' ' | cut -d ' ' -f 2 | xargs kill -9
