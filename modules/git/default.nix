@@ -15,8 +15,16 @@
         binary = "true";
       };
 
+      commit = {
+        # Sign every commit by default
+        gpgsign = true;
+      };
+
       # Use fast-forward pulls by default
       pull.ff = "only";
+
+      # Enable commit autosquash by default
+      rebase.autosquash = true;
 
       # 'master' as default branch
       init.defaultBranch = "master";

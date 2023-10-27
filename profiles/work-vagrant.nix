@@ -19,9 +19,6 @@
       user = {
         signingkey = "/home/vagrant/.ssh/id_rsa";
       };
-      commit = {
-        gpgsign = true;
-      };
       gpg = {
         format = "ssh";
       };
