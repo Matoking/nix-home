@@ -10,5 +10,6 @@
     httpie                            # Curl-like tool for humans
     ansible-lint                      # Ansible linting tool
     htop                              # Process viewer
+    moar                              # moar is less (but more)
   ];
 }
