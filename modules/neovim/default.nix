@@ -30,6 +30,7 @@ in
 
   home.packages = with pkgs; [
       silver-searcher           # Enables faster CtrlP searches
+      ripgrep                   # Enables faster FZF fuzzy searches
 
       (neovim.override {
       vimAlias = true;
@@ -88,8 +89,8 @@ in
           " Activate EasyMotion with only 's' letter
           map s <Plug>(easymotion-s)
 
-          " Activate :Ag (fuzzy grep) with Ctrl+L
-          nmap <C-l> :Ag<CR>
+          " Activate :Rg/FZF (fuzzy grep) with Ctrl+L
+          nmap <C-l> :Rg<CR>
 
           " Allow closing FZF window with Esc
           autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>

@@ -11,5 +11,6 @@
     ansible-lint                      # Ansible linting tool
     htop                              # Process viewer
     moar                              # moar is less (but more)
+    ripgrep                           # Very fast grep-like tool
   ];
 }
