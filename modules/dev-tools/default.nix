@@ -5,7 +5,6 @@
     yamllint                          # YAML linter
     python3Packages.pylint            # Python linter
     python3Packages.isort             # Python import sorting tool
-    ruff                              # Fast Python linter
     shellcheck                        # Shell linter
     httpie                            # Curl-like tool for humans
     ansible-lint                      # Ansible linting tool
@@ -14,4 +13,19 @@
     ripgrep                           # Very fast grep-like tool
     statix                            # Nix linter
   ];
+
+  # Fast Python linter
+  programs.ruff = {
+    enable = true;
+    settings = {
+      lint.select = [
+        "E"   # pycodestyle
+        "F"   # pyflakes
+        "UP"  # pyupgrade
+        "B"   # flake8-bugbear
+        "SIM" # flake8-simplify
+        "PL"  # pylint
+      ];
+    };
+  };
 }

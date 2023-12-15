@@ -28,6 +28,12 @@
     };
   };
 
+  # Work-specific Python linter settings
+  programs.ruff.settings = {
+    line-length = 80;
+    target-version = "py39";  # Target Python 3.9 aka what RHEL9 ships
+  };
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "vagrant";

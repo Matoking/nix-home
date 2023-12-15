@@ -64,7 +64,7 @@ in
 
           " Define specific linters for Python
           let g:ale_linters = {
-          \ 'python': ['pylint', 'ruff']
+          \ 'python': ['ruff']
           \ }
 
           " Tune highlighting colors for Tango color scheme
