@@ -14,7 +14,7 @@ let
     fzf-vim                         # Fuzzy grep for files using :Ag
 
     nerdtree-git-plugin             # git status icons in file browser
-    vim-isort                   # :Isort command to sort Python imports
+    vim-isort                       # :Isort command to sort Python imports
     vim-prettier                    # Opinionated JS formatter
   ];
 in
