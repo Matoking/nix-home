@@ -17,8 +17,6 @@ let
     vim-isort                   # :Isort command to sort Python imports
     vim-prettier                    # Opinionated JS formatter
   ];
-  # Use virtual text prefix with note type if ALE is new enough
-  virtualtextPrefix = if lib.versionAtLeast pkgs.vimPlugins.ale.version "2023-05-05" then " %type%: " else " : ";
 in
 {
   home.sessionVariables.EDITOR = "nvim";
@@ -69,10 +67,8 @@ in
           " Start linting earlier after writing
           let g:ale_lint_delay = 50
 
-          " Enable virtualtext for warning and use a glyph from Nerd font
-          " for the warning label
+          " Enable virtualtext for warning
           let g:ale_virtualtext_cursor = 2  " 'all'
-          let g:ale_virtualtext_prefix = '${virtualtextPrefix}'
 
           " Disable mouse support by default
           set mouse=
