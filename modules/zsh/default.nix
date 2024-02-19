@@ -3,6 +3,9 @@
 let p10kFile = ./p10k.zsh;
 in
 {
+  home.packages = with pkgs; [
+    zoxide  # Smarter 'cd' command
+  ];
   programs.zsh = {
     enable = true;
     oh-my-zsh = {
@@ -61,6 +64,8 @@ in
       function killwine() {
           ps aux | egrep "wine|\.exe" | tr -s ' ' | cut -d ' ' -f 2 | xargs kill -9
       }
+
+      eval "$(zoxide init zsh)"
     '';
     shellAliases = {
       prettyjson = "${pkgs.python3}/bin/python -m json.tool";
