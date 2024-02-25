@@ -65,7 +65,7 @@ in
           ps aux | egrep "wine|\.exe" | tr -s ' ' | cut -d ' ' -f 2 | xargs kill -9
       }
 
-      eval "$(zoxide init zsh)"
+      eval "$(zoxide init --cmd cd zsh)"
     '';
     shellAliases = {
       prettyjson = "${pkgs.python3}/bin/python -m json.tool";
