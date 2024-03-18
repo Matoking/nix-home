@@ -70,6 +70,7 @@ in
     shellAliases = {
       prettyjson = "${pkgs.python3}/bin/python -m json.tool";
       pipit = "pip install --upgrade .";
+      senv = "source venv/bin/activate";
     };
   };
 }
