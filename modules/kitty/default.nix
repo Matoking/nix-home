@@ -51,6 +51,12 @@
       color7                #d3d7cf
       color15               #ededec
       selection_foreground #000000
+
+      # Fade the text in inactive windows slightly
+      inactive_text_alpha 0.5
+
+      # Use a different tab style
+      tab_bar_style slant
     '';
   };
 }
