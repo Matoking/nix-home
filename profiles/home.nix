@@ -6,6 +6,7 @@
     ../modules/dev-tools/default.nix
     ../modules/generic-linux/default.nix
     ../modules/git/default.nix
+    ../modules/kitty/default.nix
     ../modules/neovim/default.nix
     ../modules/zsh/default.nix
   ];
