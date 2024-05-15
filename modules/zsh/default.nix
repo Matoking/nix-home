@@ -65,6 +65,37 @@ in
           ps aux | egrep "wine|\.exe" | tr -s ' ' | cut -d ' ' -f 2 | xargs kill -9
       }
 
+      function git-far() {
+        pattern="$1"
+        if [ -z "$pattern" ]; then
+          echo "Usage:"
+          echo "git-far 's/foo/bar/g'"
+          return
+        fi
+
+        # Check if git working tree is clean
+        if [ ! -z "$(git status --porcelain)" ]; then
+          echo "Working directory unclean!"
+          return
+        fi
+
+        sed -i "$pattern" $(git ls-files)
+
+        # Stash changes so user can preview them before applying them
+        git stash --include-untracked
+        git stash show -p
+
+        read -q "REPLY?Apply changes? [y/n] " -n 1 -r
+        echo
+        if [[ "$REPLY" =~ ^[Yy]$ ]]
+        then
+          git stash pop
+          return
+        fi
+
+        git stash drop
+      }
+
       eval "$(zoxide init --cmd cd zsh)"
     '';
     shellAliases = {
