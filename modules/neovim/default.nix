@@ -6,16 +6,14 @@ let
     ctrlp-vim                       # Fuzzy search with ctrl+p
     nerdtree                        # Tree file browser
     vim-airline                     # Status/tabline for vim
-    vim-jinja                       # Jinja syntax highlighting
     vim-easymotion                  # Fast cursor motions
     vim-better-whitespace           # Highlight trailing whitespace
     fzf-vim                         # Fuzzy grep for files using :Ag
-    vim-polyglot                    # Better syntax highlighting for languages
-                                    # including Python
-
     nerdtree-git-plugin             # git status icons in file browser
     vim-isort                       # :Isort command to sort Python imports
     vim-prettier                    # Opinionated JS formatter
+    nvim-treesitter.withAllGrammars # Pattern-based syntax highlighting
+    catppuccin-nvim                 # Color scheme
   ];
 in
 {
@@ -128,10 +126,16 @@ in
       let g:prettier#autoformat_config_present = 1
       let g:prettier#autoformat_require_pragma = 0
 
+      " Use Catppuccin colorscheme
+      :colorscheme catppuccin-mocha
+
       function! StartUp()
           if 0 == argc()
               NERDTree
           end
+
+          " Enable nvim-treesitter highlighting
+          :TSEnable highlight
       endfunction
 
       autocmd VimEnter * call StartUp()
