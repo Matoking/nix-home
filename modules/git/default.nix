@@ -28,6 +28,8 @@
 
       # 'master' as default branch
       init.defaultBranch = "master";
+
+      alias.push-mr = "push -o merge_request.create -o merge_request.draft";
     };
   };
 
