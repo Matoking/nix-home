@@ -79,7 +79,7 @@ in
           return
         fi
 
-        sed -i "$pattern" $(git ls-files)
+        sed --follow-symlinks -i "$pattern" $(git ls-files)
 
         # Stash changes so user can preview them before applying them
         git stash --include-untracked
@@ -102,6 +102,10 @@ in
       prettyjson = "${pkgs.python3}/bin/python -m json.tool";
       pipit = "pip install --upgrade .";
       senv = "source venv/bin/activate";
+      menv = "python3 -mvenv venv; source venv/bin/activate";
+      gad = "git add --all";
+      gco = "git commit";
+      gpu = "git push";
     };
   };
 }
