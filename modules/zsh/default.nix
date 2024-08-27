@@ -11,6 +11,7 @@ in
     oh-my-zsh = {
       enable = true;
       theme = "";
+      plugins = [ "fzf" ];
     };
     initExtra = /* bash */''
       # Ensure UTF-8 locale is used if available. Powerlevel10k requires
@@ -95,6 +96,9 @@ in
 
         git stash drop
       }
+
+      # Bind Ctrl+F to fuzzy cd
+      bindkey "^F" fzf-cd-widget
 
       eval "$(zoxide init --cmd cd zsh)"
     '';
