@@ -14,6 +14,7 @@ let
     vim-prettier                    # Opinionated JS formatter
     nvim-treesitter.withAllGrammars # Pattern-based syntax highlighting
     catppuccin-nvim                 # Color scheme
+    vim-fugitive                    # git integration
   ];
 in
 {
