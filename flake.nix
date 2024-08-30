@@ -28,6 +28,7 @@
     userProfiles = {
       home = import ./profiles/home.nix;
       nixos-machine = import ./profiles/nixos-machine.nix;
+      nixos-pc = import ./profiles/nixos-pc.nix;
       work-vagrant = import ./profiles/work-vagrant.nix;
     };
   };
