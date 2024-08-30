@@ -40,7 +40,6 @@ in
       set shiftwidth=4
       set autoindent
 
-      inoremap jk <ESC>
       let mapleader = ","
 
       filetype plugin indent on
