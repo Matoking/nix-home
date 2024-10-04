@@ -35,6 +35,11 @@
 
   home.packages = with pkgs; [
     diff-so-fancy               # Fancy diff tool
-    openssh                     # Required for new fancy SSH features
+    git-absorb                  # 'git absorb' command for automatic fixups
+
+    (openssh.override {          # Required for new fancy SSH features
+      # Required for 'GSSAPIAuthentication' config param
+      withKerberos = true;
+    })
   ];
 }
