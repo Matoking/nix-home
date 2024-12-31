@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -27,6 +27,10 @@
       };
     };
   };
+
+  home.packages = with pkgs; [
+    ansible-lint                      # Ansible linting tool
+  ];
 
   # Work-specific Python linter settings
   programs.ruff.settings = {
