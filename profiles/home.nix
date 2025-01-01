@@ -7,6 +7,7 @@
     ../modules/generic-linux/default.nix
     ../modules/git/default.nix
     ../modules/kitty/default.nix
+    ../modules/wezterm/default.nix
     ../modules/neovim/default.nix
     ../modules/zsh/default.nix
   ];

@@ -7,6 +7,7 @@
     ../modules/neovim/default.nix
     ../modules/zsh/default.nix
     ../modules/kitty/default.nix
+    ../modules/wezterm/default.nix
   ];
 
   programs.git = {
