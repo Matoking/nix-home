@@ -1,7 +1,8 @@
 { pkgs, config, ... }:
 
-let nixosFrontendWorkaroundConfig = /* lua */''
-  -- Older Wezterm does not render anything on NixOS with default settings.
+let waylandWorkaroundConfig = /* lua */''
+  -- Older Wezterm does not render anything on most distros (at least NixOS and
+  -- Wayland) with default settings.
   -- See github.com/NixOS/nixpkgs#336069
   config.front_end = 'WebGpu'
   config.enable_wayland = false
@@ -18,11 +19,24 @@ let nixosFrontendWorkaroundConfig = /* lua */''
       -- Appearance
       config.color_scheme = 'iTerm2 Tango Dark'
       config.font = wezterm.font_with_fallback {
-        -- Fonts are named slightly differently under Arch and NixOS
-        '${if config.targets.genericLinux.enable then "DejaVuSansMono Nerd Font" else "DejaVuSansM Nerd Font"}',
-        'DejaVu Sans Mono',
+        -- Fonts are named slightly differently under Arch and NixOS.
+        -- We ask for Nerd Font specifically because the built-in font in
+        -- Wezterm is missing some symbols.
+        {
+          family = '${if config.targets.genericLinux.enable then "DejaVuSansMono Nerd Font" else "DejaVuSansM Nerd Font"}',
+        },
       }
+      -- Adjust font to be slightly thinner. This could result in artifacts
+      -- so remove 'cell_width' if problems arise.
+      config.cell_width = 0.8
       config.font_size = 8.0
+
+      config.window_padding = {
+        left = 0,
+        right = 0,
+        top = 2,
+        bottom = 2
+      }
 
       config.max_fps = 180
 
@@ -73,7 +87,7 @@ let nixosFrontendWorkaroundConfig = /* lua */''
         },
       }
 
-      ${if !config.targets.genericLinux.enable then nixosFrontendWorkaroundConfig else ""}
+      ${if !config.targets.genericLinux.enable then waylandWorkaroundConfig else ""}
 
       return config
     '';
