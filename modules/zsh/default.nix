@@ -110,6 +110,7 @@ in
       gad = "git add --all";
       gco = "git commit";
       gpu = "git push";
+      gds = "git diff --staged";
     };
   };
 }
