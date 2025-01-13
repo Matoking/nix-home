@@ -100,6 +100,9 @@ in
       # Bind Ctrl+F to fuzzy cd
       bindkey "^F" fzf-cd-widget
 
+      # Required for whatever we might have installed here (eg. poetry, pipx...)
+      export PATH=$PATH:$HOME/.local/bin
+
       eval "$(zoxide init --cmd cd zsh)"
     '';
     shellAliases = {
