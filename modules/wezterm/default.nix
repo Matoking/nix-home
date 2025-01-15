@@ -31,6 +31,8 @@ let waylandWorkaroundConfig = /* lua */''
       config.cell_width = 0.8
       config.font_size = 8.0
 
+      config.scrollback_lines = 50000
+
       config.window_padding = {
         left = 0,
         right = 0,
@@ -85,7 +87,42 @@ let waylandWorkaroundConfig = /* lua */''
           mods = 'CTRL|SHIFT',
           action = act.ActivateTabRelative(1),
         },
+        {
+          key = 'H',
+          mods = 'CTRL|SHIFT',
+          action = act.EmitEvent 'trigger-less-with-scrollback',
+        },
       }
+
+      wezterm.on('trigger-less-with-scrollback', function(window, pane)
+        -- Retrieve the current pane's text
+        local text = pane:get_lines_as_escapes(pane:get_dimensions().scrollback_rows)
+
+        -- Create a temporary file to pass to the pager
+        local name = os.tmpname()
+        local f = io.open(name, 'w+')
+        f:write(text)
+        f:flush()
+        f:close()
+
+        -- Open a new window running less and tell it to open the file
+        window:perform_action(
+          act.SpawnCommandInNewTab {
+            args = { 'less', '-fr', name },
+            domain = 'DefaultDomain',
+          },
+          pane
+        )
+
+        -- Wait "enough" time for less to read the file before we remove it.
+        -- The window creation and process spawn are asynchronous wrt. running
+        -- this script and are not awaitable, so we just pick a number.
+        --
+        -- Note: We don't strictly need to remove this file, but it is nice
+        -- to avoid cluttering up the temporary directory.
+        wezterm.sleep_ms(1000)
+        os.remove(name)
+      end)
 
       ${if !config.targets.genericLinux.enable then waylandWorkaroundConfig else ""}
 
