@@ -97,6 +97,26 @@ in
         git stash drop
       }
 
+      # Diff two Ansible Vault encrypted files (HEAD and user-provided ref)
+      # in git repository.
+      function vault-git-diff() {
+        FILE_PATH="$1"
+        GIT_REF="$2"
+
+        if [[ -z "$GIT_REF" ]]; then
+          echo "Usage:"
+          echo "vault-git-diff inventory/foo/vault.yml origin/cool-git-branch"
+          return
+        fi
+
+        read -s -r "ANSIBLE_VAULT_PASS?Vault password: "
+        echo
+
+        diff -u \
+          <(cat "$FILE_PATH" | ansible-vault view --vault-password-file <( echo "$ANSIBLE_VAULT_PASS" ) -) \
+          <(git show "$GIT_REF":"$FILE_PATH" | ansible-vault view --vault-password-file <( echo "$ANSIBLE_VAULT_PASS" ) -)
+      }
+
       # Bind Ctrl+F to fuzzy cd
       bindkey "^F" fzf-cd-widget
 
