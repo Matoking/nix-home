@@ -94,6 +94,31 @@ let waylandWorkaroundConfig = /* lua */''
         },
       }
 
+      -- Copied from https://github.com/wezterm/wezterm/issues/119#issuecomment-1206593847
+      config.mouse_bindings = {
+        -- Change the default click behavior so that it only selects
+        -- text and doesn't open hyperlinks
+        {
+          event={Up={streak=1, button="Left"}},
+          mods="NONE",
+          action=act.CompleteSelection("PrimarySelection"),
+        },
+
+        -- and make CTRL-Click open hyperlinks
+        {
+          event={Up={streak=1, button="Left"}},
+          mods="CTRL",
+          action=act.OpenLinkAtMouseCursor,
+        },
+
+        -- Disable the 'Down' event of CTRL-Click to avoid weird program behaviors
+        {
+          event = { Down = { streak = 1, button = 'Left' } },
+          mods = 'CTRL',
+          action = act.Nop,
+        }
+      },
+
       wezterm.on('trigger-less-with-scrollback', function(window, pane)
         -- Retrieve the current pane's text
         local text = pane:get_lines_as_escapes(pane:get_dimensions().scrollback_rows)
