@@ -3,9 +3,6 @@
 let p10kFile = ./p10k.zsh;
 in
 {
-  home.packages = with pkgs; [
-    zoxide  # Smarter 'cd' command
-  ];
   programs.zsh = {
     enable = true;
     oh-my-zsh = {
@@ -122,8 +119,6 @@ in
 
       # Required for whatever we might have installed here (eg. poetry, pipx...)
       export PATH=$PATH:$HOME/.local/bin
-
-      eval "$(zoxide init --cmd cd zsh)"
     '';
     shellAliases = {
       prettyjson = "${pkgs.python3}/bin/python -m json.tool";
