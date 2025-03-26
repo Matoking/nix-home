@@ -15,6 +15,7 @@ let
     nvim-treesitter.withAllGrammars # Pattern-based syntax highlighting
     catppuccin-nvim                 # Color scheme
     vim-fugitive                    # git integration
+    git-blame-nvim                  # :GitBlameToggle command to git blame
   ];
 in
 {
@@ -33,6 +34,9 @@ in
     extraLuaConfig = /* lua */''
       require("catppuccin").setup({
         default_integrations = false,
+      })
+      require("gitblame").setup({
+        enabled = false,
       })
 
       vim.cmd.colorscheme "catppuccin-mocha"
@@ -129,6 +133,9 @@ in
       " Use Ctrl+K and Ctrl+J to move between ALE warnings
       nmap <silent> <C-k> <Plug>(ale_previous_wrap)
       nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+      " Alias :GBB to :GitBlameToggle
+      :command GBB GitBlameToggle
 
       " Only autoformat using Prettier if the project is configured to
       " use it
