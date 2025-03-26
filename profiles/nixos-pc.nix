@@ -3,6 +3,7 @@
 {
   imports = [
     ../modules/dev-tools/default.nix
+    ../modules/fish/default.nix
     ../modules/git/default.nix
     ../modules/neovim/default.nix
     ../modules/zsh/default.nix
