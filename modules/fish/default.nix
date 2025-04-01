@@ -14,7 +14,7 @@
       if test -z $tide_time_format
         tide configure --auto \
           --style=Rainbow \
-          --prompt_colors='True color' \
+          --prompt_colors='16 colors' \
           --show_time='24-hour format' \
           --rainbow_prompt_separators=Angled \
           --powerline_prompt_heads=Sharp \
