@@ -51,6 +51,9 @@ in
       set shiftwidth=4
       set autoindent
 
+      " Relative line numbers by default
+      set rnu
+
       let mapleader = ","
 
       filetype plugin indent on
@@ -98,6 +101,9 @@ in
 
       " Alias :W to :w
       cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+
+      " Map 'ä' to change between relative and absolute line numbers
+      map ä :set rnu!<CR>
 
       let g:airline_powerline_fonts = 1
       let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
