@@ -43,7 +43,7 @@ in
   home.file = listToAttrs [
     # git search-and-replace
     (scriptFile "git-far" /* sh */''
-        #!/usr/bin/env zsh
+        #!/usr/bin/env bash
         pattern="$1"
         if [ -z "$pattern" ]; then
           echo "Usage:"
@@ -63,7 +63,7 @@ in
         git stash --include-untracked
         git stash show -p
 
-        read -q "REPLY?Apply changes? [y/n] " -n 1 -r
+        read -p "Apply changes? [y/n] " -n 1 -r
         echo
         if [[ "$REPLY" =~ ^[Yy]$ ]]
         then
@@ -76,6 +76,7 @@ in
 
     # Diff contents of two Ansible Vault encrypted files
     (scriptFile "vault-git-diff" /* sh */''
+      #!/usr/bin/env bash
       FILE_PATH="$1"
       GIT_REF="$2"
 
@@ -85,7 +86,8 @@ in
         return
       fi
 
-      read -s -r "ANSIBLE_VAULT_PASS?Vault password: "
+      read -s -r -p "Vault password: "
+      ANSIBLE_VAULT_PASS="$REPLY"
       echo
 
       diff -u \
