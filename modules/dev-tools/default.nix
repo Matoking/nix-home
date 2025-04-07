@@ -41,6 +41,7 @@ in
   };
 
   home.file = listToAttrs [
+    # git search-and-replace
     (scriptFile "git-far" /* sh */''
         #!/usr/bin/env zsh
         pattern="$1"
@@ -72,6 +73,8 @@ in
 
         git stash drop
     '')
+
+    # Diff contents of two Ansible Vault encrypted files
     (scriptFile "vault-git-diff" /* sh */''
       FILE_PATH="$1"
       GIT_REF="$2"
@@ -89,6 +92,16 @@ in
         <(cat "$FILE_PATH" | ansible-vault view --vault-password-file <( echo "$ANSIBLE_VAULT_PASS" ) -) \
         <(git show "$GIT_REF":"$FILE_PATH" | ansible-vault view --vault-password-file <( echo "$ANSIBLE_VAULT_PASS" ) -)
     '')
+
+    # Process JSON file to remove all '_' fields.
+    # This enables using the field name as an ad-hoc comment field.
+    (scriptFile "2json" /* sh */''
+      ${pkgs.jq}/bin/jq \
+        'walk(if(type == "object" and ._) then del(._) else . end)' \
+        "$1"
+    '')
+
+    # Run git command with an ephemeral SSH agent
     (scriptFile "sgit" /* sh */''
         eval $(ssh-agent -s)
         trap "kill $SSH_AGENT_PID" EXIT
@@ -99,12 +112,16 @@ in
         git $@ || kill $SSH_AGENT_PID
         kill $SSH_AGENT_PID
     '')
+
+    # Run SSH with an ephemeral SSH agent
     (scriptFile "ssha" /* sh */''
         eval $(ssh-agent -s)
         trap "kill $SSH_AGENT_PID" EXIT
         ssh -A $@
         kill $SSH_AGENT_PID
     '')
+
+    # Kill all Wine processes
     (scriptFile "killwine" /* sh */''
         ps aux | egrep "wine|\.exe" | tr -s ' ' | cut -d ' ' -f 2 | xargs kill -9
     '')
