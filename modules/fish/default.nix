@@ -39,6 +39,10 @@
 
       # Disable virtualenv's own prompt and let Tide handle it
       set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
+
+      # Add '!!' alias
+      function last_history_item; echo $history[1]; end
+      abbr -a !! --position anywhere --function last_history_item
     '';
     shellAbbrs = {
       prettyjson = "${pkgs.python3}/bin/python -m json.tool";
