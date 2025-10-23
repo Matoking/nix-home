@@ -148,6 +148,10 @@ in
       let g:prettier#autoformat_config_present = 1
       let g:prettier#autoformat_require_pragma = 0
 
+      " Do not match file path when using :Rg
+      let g:fzf_vim = {}
+      let g:fzf_vim.rg_options = '--nth 4..'
+
       function! StartUp()
           if 0 == argc()
               NERDTree
