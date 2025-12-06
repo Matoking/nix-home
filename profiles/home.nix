@@ -13,9 +13,9 @@
     ../modules/zsh/default.nix
   ];
 
-  programs.git = {
-    userEmail = "janne.pulkkinen@protonmail.com";
-    userName = "Janne Pulkkinen";
+  programs.git.settings = {
+    user.email = "janne.pulkkinen@protonmail.com";
+    user.name = "Janne Pulkkinen";
   };
 
   # Home Manager needs a bit of information about you and the

@@ -19,7 +19,7 @@ in
     shellcheck                        # Shell linter
     httpie                            # Curl-like tool for humans
     htop                              # Process viewer
-    moar                              # moar is less (but more)
+    moor                              # moor is less (but more)
     ripgrep                           # Very fast grep-like tool
     statix                            # Nix linter
     fzf                               # Fuzzy search

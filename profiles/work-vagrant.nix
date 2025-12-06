@@ -12,12 +12,12 @@
   ];
 
   programs.git = {
-    userEmail = "janne.pulkkinen@csc.fi";
-    userName = "Janne Pulkkinen";
-
-    # Enable SSH signing
-    extraConfig = {
+    settings = {
       user = {
+        email = "janne.pulkkinen@csc.fi";
+        name = "Janne Pulkkinen";
+
+        # Enable SSH signing
         signingkey = "/home/vagrant/.ssh/id_rsa";
       };
       gpg = {

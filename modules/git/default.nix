@@ -3,7 +3,7 @@
 {
   programs.git = {
     enable = true;
-    extraConfig = {
+    settings = {
       pager = {
         # Enable fancier `git diff`
         show = "diff-so-fancy | less --tabs 1,5 -RFX";

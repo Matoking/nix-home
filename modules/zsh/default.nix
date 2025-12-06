@@ -10,7 +10,7 @@ in
       theme = "";
       plugins = [ "fzf" ];
     };
-    initExtra = /* bash */''
+    initContent = /* bash */''
       # Ensure UTF-8 locale is used if available. Powerlevel10k requires
       # UTF-8, otherwise it will crash and burn and leave the shell
       # unusable.
