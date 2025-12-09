@@ -43,6 +43,9 @@
       # Add '!!' alias
       function last_history_item; echo $history[1]; end
       abbr -a !! --position anywhere --function last_history_item
+
+      # Add 'sgit' -> 'git' auto-completion alias
+      complete -c sgit -w git
     '';
     shellAbbrs = {
       prettyjson = "${pkgs.python3}/bin/python -m json.tool";
