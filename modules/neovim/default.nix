@@ -40,6 +40,13 @@ in
       })
 
       vim.cmd.colorscheme "catppuccin-mocha"
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = '*',
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
     '';
     extraConfig = /* vim */''
       set colorcolumn=80
@@ -156,9 +163,6 @@ in
           if 0 == argc()
               NERDTree
           end
-
-          " Enable nvim-treesitter highlighting
-          :TSEnable highlight
       endfunction
 
       autocmd VimEnter * call StartUp()
