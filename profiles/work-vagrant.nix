@@ -39,6 +39,9 @@
     target-version = "py39";  # Target Python 3.9 aka what RHEL9 ships
   };
 
+  # No GPU support needed for VM
+  targets.genericLinux.gpu.enable = false;
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "vagrant";
