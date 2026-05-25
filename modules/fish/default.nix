@@ -50,6 +50,7 @@
     shellAbbrs = {
       prettyjson = "${pkgs.python3}/bin/python -m json.tool";
       pipit = "pip install --upgrade .";
+      pipie = "pip install --editable .";
       senv = "source venv/bin/activate.fish";
       menv = "python3 -mvenv venv; source venv/bin/activate.fish";
       gad = "git add --all";
