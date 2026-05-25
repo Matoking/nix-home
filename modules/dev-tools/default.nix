@@ -23,6 +23,7 @@ in
     ripgrep                           # Very fast grep-like tool
     statix                            # Nix linter
     fzf                               # Fuzzy search
+    nh                                # Nix CLI helper
   ];
 
   # Fast Python linter
