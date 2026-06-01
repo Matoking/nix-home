@@ -16,6 +16,7 @@ let
     catppuccin-nvim                 # Color scheme
     vim-fugitive                    # git integration
     git-blame-nvim                  # :GitBlameToggle command to git blame
+    vim-gutentags                   # Automatic ctags generation
   ];
 in
 {
@@ -24,7 +25,7 @@ in
   home.packages = with pkgs; [
       silver-searcher           # Enables faster CtrlP searches
       ripgrep                   # Enables faster FZF fuzzy searches
-
+      universal-ctags           # ctags generation for many languages
   ];
 
   programs.neovim = {
@@ -147,6 +148,9 @@ in
       nmap <silent> <C-k> <Plug>(ale_previous_wrap)
       nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+      " Map Ctrl+I to jump into tag
+      nmap <silent> <C-i> <C-]>
+
       " Alias :GBB to :GitBlameToggle
       :command GBB GitBlameToggle
 
@@ -158,6 +162,13 @@ in
       " Do not match file path when using :Rg
       let g:fzf_vim = {}
       let g:fzf_vim.rg_options = '--nth 4..'
+
+      " Configure gutentags
+      let g:gutentags_cache_dir = $HOME . '/.cache/gutentags'
+      let g:gutentags_file_list_command = 'git ls-files'
+
+      " Show 'Ctags' in statusline during ctags generation
+      set statusline+=%{gutentags#statusline()}
 
       function! StartUp()
           if 0 == argc()
